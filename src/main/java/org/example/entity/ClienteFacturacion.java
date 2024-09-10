@@ -19,6 +19,6 @@ public class ClienteFacturacion extends Cliente {
 
     @Override
     public String toString() {
-        return "ClienteConFacturacion [Id:" + this.getIdCliente() + " " + "Nombre:" + this.getNombre() + " " + "Email:" + this.getEmail()+ ", facturacion=" + facturacion + "]" ;
+        return "Id:" + this.getIdCliente() + " " + "Nombre:" + this.getNombre() + " " + "Email:" + this.getEmail()+ ", facturacion=" + facturacion ;
     }
 }

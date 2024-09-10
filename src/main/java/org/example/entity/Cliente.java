@@ -15,10 +15,6 @@ public class Cliente {
         return new Cliente(this.idCliente, this.nombre, this.email);
     }
 
-    public String toString() {
-        return "Id:" + this.idCliente + " " + "Nombre:" + this.nombre + " " + "Email:" + this.email;
-    }
-
     public int getIdCliente() {
         return idCliente;
     }
@@ -42,5 +38,7 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    public String toString() {
+        return "Id:" + this.idCliente + " " + "Nombre:" + this.nombre + " " + "Email:" + this.email+ "\n";
+    }
 }

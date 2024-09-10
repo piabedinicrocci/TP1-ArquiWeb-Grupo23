@@ -1,30 +1,39 @@
 package org.example;
 
+import org.example.dao.ClienteMysqlDAO;
+import org.example.dao.FacturaProductoMysqlDAO;
+import org.example.dto.ClienteDTO;
+import org.example.dto.RecaudacionDTO;
+import org.example.entity.Cliente;
+import org.example.factory.AbstractFactory;
+import org.example.utils.HelperMySQL;
+
+import java.util.List;
+
 public class Main {
-    public static void main(String[] args) {
+        public static void main(String[] args) throws Exception {
+            HelperMySQL dbMySQL = new HelperMySQL();
+            dbMySQL.dropTables();
+            dbMySQL.createTables();
+            dbMySQL.populateDB();
+            dbMySQL.closeConnection();
 
-        CrearBaseDeDatos crearBaseDeDatos = new CrearBaseDeDatos();
-        crearBaseDeDatos.connection();
+            AbstractFactory chosenFactory = AbstractFactory.getDAOFactory(1);
+            System.out.println();
+            System.out.println("////////////////////////////////////////////");
+            System.out.println();
 
-//        CargaCliente cargaCliente = new CargaCliente();
-//        cargaCliente.cargarDatosCSV();
-//
-//        CargaFactura cargaFactura = new CargaFactura();
-//        cargaFactura.cargarDatosCSV();
-//
-//        CargaProductos cargaProductos = new CargaProductos();
-//        cargaProductos.cargarDatosCSV();
-//
-//        CargaFacturaProducto cargaFacturaProductos = new CargaFacturaProducto();
-//        cargaFacturaProductos.cargarDatosCSV();
+            ClienteMysqlDAO clienteMysqlDAO = chosenFactory.getClienteMysqlDAO();
+            FacturaProductoMysqlDAO facturaProductoMysqlDAO = chosenFactory.getFacturaProductoMysqlDAO();
 
-       // System.out.println("Base de datos creada y datos cargados");
+            System.out.println("////////////////////////////////////////////");
+            System.out.println("Lista de lista de clientes, ordenada por a cuál se le facturó más:  ");
+            List<Cliente> listadoClientes = clienteMysqlDAO.selectList();
+            System.out.println(listadoClientes);
 
-        Recaudacion recaudacion = new Recaudacion();
-        recaudacion.mayorRecaudacion();
+            System.out.println("////////////////////////////////////////////");
+            RecaudacionDTO recaudacionDTO = facturaProductoMysqlDAO.getRecaudacion();
+            System.out.println(recaudacionDTO);
 
-        ListaClientes lista = new ListaClientes();
-        ListaClientes.listaMayor();
-
-    }
+        }
 }
